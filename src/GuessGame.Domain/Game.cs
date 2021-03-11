@@ -30,14 +30,18 @@ namespace GuessGame.Tests
 
         public void Score()
         {
-            if (Player.CurrentChoice == Questions[CurrentRound])
+            if (Player.CurrentChoice == Questions[CurrentRound-1])
                 Player.Score += 20;
             else
                 Player.Score -= 5;
 
-            CurrentRound++;
+            NextRound();
         }
 
-       
+
+        public void NextRound()
+        {
+            CurrentRound++;
+        }
     }
 }

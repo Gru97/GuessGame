@@ -6,6 +6,5 @@
         Chinese,
         Korean,
         Thai
-
     }
 }
