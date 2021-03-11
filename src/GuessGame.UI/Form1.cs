@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
+﻿using GuessGame.Tests;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using GuessGame.Domain;
-using GuessGame.Tests;
-using Microsoft.VisualBasic;
 
 namespace GuessGame.UI
 {
@@ -28,19 +16,14 @@ namespace GuessGame.UI
             InitializeComponent();
             DoubleBuffered = true;
 
-            //g.DrawRectangle(new Pen(Color.Aquamarine),new Rectangle(new Point(400,20),new Size(120,120)));
-            //gameCanvas.Controls.Add(new Box("lblThai", gameCanvas.Location.X, gameCanvas.Location.Y));
-            //gameCanvas.Controls.Add(new Box("lblChinese", gameCanvas.Location.X + 10000, gameCanvas.Location.Y));
-            //gameCanvas.Controls.Add(new Box("lblJapanese", gameCanvas.Location.X, gameCanvas.Location.Y + 700));
-            //gameCanvas.Controls.Add(new Box("lblKorean", gameCanvas.Location.X + 1000, gameCanvas.Location.Y + 700));
-
             _gameManager = new GameManager();
             _gameManager.PictureLocationRestarted+= OnPictureLocationRestarted;
             _gameManager.PictureMoved+= OnPictureMoved;
-
-
             _initialLocation = pictureQuestion.Location;
         }
+
+    
+
         private void btnStart_Click(object sender, EventArgs e)
         {
             _gameManager.StartGame();
@@ -56,11 +39,12 @@ namespace GuessGame.UI
                 gameCanvas.Refresh();
             }));
         }
-        private void OnPictureLocationRestarted()
+        private void OnPictureLocationRestarted(string correctGuess)
         {
             Invoke(new Action(delegate()
             {
                 pictureQuestion.Location = _initialLocation;
+                pictureQuestion.Text = correctGuess;
                 gameCanvas.Refresh();
             }));
 
@@ -72,11 +56,20 @@ namespace GuessGame.UI
             Invoke(new Action(delegate()
             {
                 _gameManager.Stop();
-                //pause, then on mouse up starts moving down from where it's been stopped
             }));
             
+
         }
-    
+        private void pictureQuestion_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (pictureQuestionIsSelected)
+                    pictureQuestion.Location = new Point(pictureQuestion.Location.X + e.X, pictureQuestion.Location.Y + e.Y);
+            }
+
+        }
+
         private void pictureQuestion_MouseUp(object sender, MouseEventArgs e)
         {
             pictureQuestion.Location = new Point(pictureQuestion.Location.X+ e.X, pictureQuestion.Location.Y+ e.Y);
@@ -85,7 +78,9 @@ namespace GuessGame.UI
             if (IsInAnyBox())
                 _gameManager.PlayerGuessed(GuessedBox());
 
-            //_gameManager.StartRound();
+            pictureQuestion.Location = _initialLocation;
+            lblScore.Text = _gameManager.GetScore().ToString();
+            _gameManager.StartRound();
 
         }
         private Choice GuessedBox()
@@ -107,14 +102,5 @@ namespace GuessGame.UI
             return false;
         }
 
-        private void pictureQuestion_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                if (pictureQuestionIsSelected)
-                    pictureQuestion.Location = new Point(pictureQuestion.Location.X + e.X, pictureQuestion.Location.Y + e.Y);
-            }
-           
-        }
     }
 }

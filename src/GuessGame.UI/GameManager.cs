@@ -10,7 +10,8 @@ namespace GuessGame.UI
         private Game _game;
         private Stopwatch _timer=new Stopwatch();
         public delegate void Notify();  // delegate
-        public event Notify PictureLocationRestarted; // event
+        public delegate void NotifyWithCorrectGuess(string correctGuess);  // delegate
+        public event NotifyWithCorrectGuess PictureLocationRestarted; // event
         public event Notify PictureMoved; // event
         private bool _useGuessed;
 
@@ -23,12 +24,12 @@ namespace GuessGame.UI
         public void StartGame()
         {
             _game.GenerateRandomQuestions();
-
             StartRound();
         }
 
         public void StartRound()
         {
+            _useGuessed = false;
             Thread worker = new Thread(new ThreadStart(Move));
             worker.Start();
         }
@@ -40,42 +41,43 @@ namespace GuessGame.UI
         }
         private void Move()
         {
-
             while (!_game.End())
             {
                 if (!_timer.IsRunning && !_useGuessed)
                 {
                     _timer.Start();
                     //TODO: raise an event to reset picture location
-                    PictureLocationRestarted();
+                    PictureLocationRestarted(_game.GetCurrentRoundRightGuess().ToString());
                     while (!TimesUp())
                     {
                         if (_useGuessed)
+                        {
                             break;
+                        }
 
                         //TODO: raise an event to move picture
                         PictureMoved();
                         Thread.Sleep(10);
-                        
-                        
-                        
-
                     }
                     _timer.Stop();
                     _timer.Reset();
-                    _game.NextRound();
                 }
             }
         }
         private bool TimesUp()
         {
-            return _timer.Elapsed.Seconds > 10;
+            return _timer.Elapsed.Seconds > Game.MaxTimeEachRound;
         }
 
         public void Stop()
         {
             _useGuessed = true;
             _timer.Stop();
+        }
+
+        public int GetScore()
+        {
+            return _game.Player.Score;
         }
     }
 }

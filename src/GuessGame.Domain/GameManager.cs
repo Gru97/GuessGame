@@ -44,7 +44,6 @@ namespace GuessGame.Domain
                     }
                     _timer.Stop();
                     _timer.Reset();
-                    _game.NextRound();
                 }
             }
         }

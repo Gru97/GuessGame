@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GuessGame.Tests
 {
@@ -6,10 +7,11 @@ namespace GuessGame.Tests
     {
         public List<Choice> Questions { get; set; }
         public Player Player { get; set; }
-        public static int QuestionCount = 10;
-        public int CurrentRound { get; set; }
+        public static int MaxRound = 2;
+        public static int MaxTimeEachRound = 10;
+        public int CurrentRound { get; set; } = 1;
 
-        public bool End() => QuestionCount == CurrentRound;
+        public bool End() => MaxRound < CurrentRound;
       
         public Game()
         {
@@ -18,11 +20,11 @@ namespace GuessGame.Tests
         }
         public void GenerateRandomQuestions()
         {
-            //var random= new Random();
-            for (int i = 0; i < QuestionCount; i++)
+            var random= new Random();
+            for (int i = 0; i < MaxRound; i++)
             {
-                //var r= random.Next(0, 3);
-                var randomChoice = 1;
+                var randomChoice = random.Next(0, 3);
+                //var randomChoice = 1;
                 Questions.Add((Choice)randomChoice);
             }
             
@@ -30,7 +32,7 @@ namespace GuessGame.Tests
 
         public void Score()
         {
-            if (Player.CurrentChoice == Questions[CurrentRound-1])
+            if (Player.CurrentChoice == GetCurrentRoundRightGuess())
                 Player.Score += 20;
             else
                 Player.Score -= 5;
@@ -38,8 +40,11 @@ namespace GuessGame.Tests
             NextRound();
         }
 
+        public Choice GetCurrentRoundRightGuess() => Questions[CurrentRound - 1];
+        
 
-        public void NextRound()
+
+        private void NextRound()
         {
             CurrentRound++;
         }

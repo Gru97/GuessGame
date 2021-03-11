@@ -35,7 +35,7 @@ namespace GuessGame.Tests
 
             game.GenerateRandomQuestions();
 
-            Assert.Equal(Game.QuestionCount,game.Questions.Count);
+            Assert.Equal(Game.MaxRound,game.Questions.Count);
 
 
         }

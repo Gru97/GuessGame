@@ -34,14 +34,15 @@
             this.lblThai = new System.Windows.Forms.Label();
             this.lblKorean = new System.Windows.Forms.Label();
             this.lblChinese = new System.Windows.Forms.Label();
-            this.pictureQuestion = new System.Windows.Forms.PictureBox();
+            this.pictureQuestion = new System.Windows.Forms.Label();
+            this.lblScore = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.gameCanvas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureQuestion)).BeginInit();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(602, 605);
+            this.btnStart.Location = new System.Drawing.Point(468, 607);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(92, 22);
             this.btnStart.TabIndex = 6;
@@ -107,28 +108,50 @@
             // 
             // pictureQuestion
             // 
-            this.pictureQuestion.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pictureQuestion.Location = new System.Drawing.Point(515, 272);
+            this.pictureQuestion.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.pictureQuestion.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.pictureQuestion.Location = new System.Drawing.Point(546, 0);
             this.pictureQuestion.Name = "pictureQuestion";
-            this.pictureQuestion.Size = new System.Drawing.Size(101, 100);
+            this.pictureQuestion.Size = new System.Drawing.Size(118, 100);
             this.pictureQuestion.TabIndex = 4;
-            this.pictureQuestion.TabStop = false;
+            this.pictureQuestion.Text = "Guess My Nationality?";
+            this.pictureQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.pictureQuestion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureQuestion_MouseDown);
             this.pictureQuestion.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureQuestion_MouseMove);
             this.pictureQuestion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureQuestion_MouseUp);
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Location = new System.Drawing.Point(817, 612);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(13, 15);
+            this.lblScore.TabIndex = 9;
+            this.lblScore.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(760, 611);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 15);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Score";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 650);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblScore);
             this.Controls.Add(this.gameCanvas);
             this.Controls.Add(this.btnStart);
             this.Name = "Form1";
             this.Text = "Form1";
             this.gameCanvas.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureQuestion)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -140,7 +163,9 @@
         private System.Windows.Forms.Label lblKorean;
         private System.Windows.Forms.Label Japanies;
         private System.Windows.Forms.Label lblJapanese;
-        private System.Windows.Forms.PictureBox pictureQuestion;
+        private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label pictureQuestion;
     }
 }
 
