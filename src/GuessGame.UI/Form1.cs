@@ -5,6 +5,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,18 +19,16 @@ namespace GuessGame.UI
 {
     public partial class Form1 : Form
     {
-        private readonly Graphics _graphics;
-        private readonly Stopwatch _timer= new Stopwatch();
         private Point _initialLocation;
-        private int _currentRound=1;
         private GameManager _gameManager;
         private bool pictureQuestionIsSelected;
-
-
+       
         public Form1()
         {
             InitializeComponent();
+            DoubleBuffered = true;
 
+            //g.DrawRectangle(new Pen(Color.Aquamarine),new Rectangle(new Point(400,20),new Size(120,120)));
             //gameCanvas.Controls.Add(new Box("lblThai", gameCanvas.Location.X, gameCanvas.Location.Y));
             //gameCanvas.Controls.Add(new Box("lblChinese", gameCanvas.Location.X + 10000, gameCanvas.Location.Y));
             //gameCanvas.Controls.Add(new Box("lblJapanese", gameCanvas.Location.X, gameCanvas.Location.Y + 700));
@@ -39,8 +39,11 @@ namespace GuessGame.UI
             _gameManager.PictureMoved+= OnPictureMoved;
 
 
-            _graphics = gameCanvas.CreateGraphics();
             _initialLocation = pictureQuestion.Location;
+        }
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            _gameManager.StartGame();
         }
 
         private void OnPictureMoved()
@@ -63,29 +66,6 @@ namespace GuessGame.UI
 
            
         }
-        private void pictureQuestion_MouseUp(object sender, MouseEventArgs e)
-        {
-            pictureQuestionIsSelected = false;
-            if(IsInCorrectLocation(pictureQuestion.Location))
-                _gameManager.PlayerGuessed(pictureQuestion.Location);
-
-            //should go for next round
-
-        }
-        private bool IsInCorrectLocation(Point pictureQuestionLocation)
-        {
-            if (pictureQuestion.Bounds.IntersectsWith(label1.Bounds))
-            {
-                MessageBox.Show("Test");
-            }
-
-            return false;
-        }
-
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-           _gameManager.StartGame();
-        }
         private void pictureQuestion_MouseDown(object sender, MouseEventArgs e)
         {
             pictureQuestionIsSelected = true;
@@ -96,10 +76,45 @@ namespace GuessGame.UI
             }));
             
         }
+    
+        private void pictureQuestion_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureQuestion.Location = new Point(pictureQuestion.Location.X+ e.X, pictureQuestion.Location.Y+ e.Y);
+
+            pictureQuestionIsSelected = false;
+            if (IsInAnyBox())
+                _gameManager.PlayerGuessed(GuessedBox());
+
+            //_gameManager.StartRound();
+
+        }
+        private Choice GuessedBox()
+        {
+            if (pictureQuestion.Bounds.IntersectsWith(lblChinese.Bounds)) return Choice.Chinese;
+            else if (pictureQuestion.Bounds.IntersectsWith(lblJapanese.Bounds)) return Choice.Japanese;
+            else if (pictureQuestion.Bounds.IntersectsWith(lblKorean.Bounds)) return Choice.Korean;
+            else return Choice.Thai;
+            
+        }
+        private bool IsInAnyBox()
+        {
+            if (pictureQuestion.Bounds.IntersectsWith(lblChinese.Bounds)
+                || pictureQuestion.Bounds.IntersectsWith(lblJapanese.Bounds)
+                || pictureQuestion.Bounds.IntersectsWith(lblKorean.Bounds)
+                || pictureQuestion.Bounds.IntersectsWith(lblThai.Bounds))
+                return true;
+
+            return false;
+        }
+
         private void pictureQuestion_MouseMove(object sender, MouseEventArgs e)
         {
-            if(pictureQuestionIsSelected)
-                pictureQuestion.Location=new Point(e.X,e.Y);
+            if (e.Button == MouseButtons.Left)
+            {
+                if (pictureQuestionIsSelected)
+                    pictureQuestion.Location = new Point(pictureQuestion.Location.X + e.X, pictureQuestion.Location.Y + e.Y);
+            }
+           
         }
     }
 }

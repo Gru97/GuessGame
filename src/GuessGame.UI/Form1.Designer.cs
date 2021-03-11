@@ -30,8 +30,11 @@
         {
             this.btnStart = new System.Windows.Forms.Button();
             this.gameCanvas = new System.Windows.Forms.Panel();
+            this.lblJapanese = new System.Windows.Forms.Label();
+            this.lblThai = new System.Windows.Forms.Label();
+            this.lblKorean = new System.Windows.Forms.Label();
+            this.lblChinese = new System.Windows.Forms.Label();
             this.pictureQuestion = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.gameCanvas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureQuestion)).BeginInit();
             this.SuspendLayout();
@@ -48,33 +51,71 @@
             // 
             // gameCanvas
             // 
-            this.gameCanvas.Controls.Add(this.label1);
+            this.gameCanvas.Controls.Add(this.lblJapanese);
+            this.gameCanvas.Controls.Add(this.lblThai);
+            this.gameCanvas.Controls.Add(this.lblKorean);
+            this.gameCanvas.Controls.Add(this.lblChinese);
             this.gameCanvas.Controls.Add(this.pictureQuestion);
             this.gameCanvas.Location = new System.Drawing.Point(30, 12);
             this.gameCanvas.Name = "gameCanvas";
             this.gameCanvas.Size = new System.Drawing.Size(1200, 570);
             this.gameCanvas.TabIndex = 7;
             // 
+            // lblJapanese
+            // 
+            this.lblJapanese.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblJapanese.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblJapanese.Location = new System.Drawing.Point(0, 420);
+            this.lblJapanese.Name = "lblJapanese";
+            this.lblJapanese.Size = new System.Drawing.Size(200, 150);
+            this.lblJapanese.TabIndex = 8;
+            this.lblJapanese.Text = "Japanese";
+            this.lblJapanese.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblThai
+            // 
+            this.lblThai.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblThai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblThai.Location = new System.Drawing.Point(1000, 420);
+            this.lblThai.Name = "lblThai";
+            this.lblThai.Size = new System.Drawing.Size(200, 150);
+            this.lblThai.TabIndex = 7;
+            this.lblThai.Text = "Thai";
+            this.lblThai.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblKorean
+            // 
+            this.lblKorean.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblKorean.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblKorean.Location = new System.Drawing.Point(1000, 0);
+            this.lblKorean.Name = "lblKorean";
+            this.lblKorean.Size = new System.Drawing.Size(200, 150);
+            this.lblKorean.TabIndex = 6;
+            this.lblKorean.Text = "Korean";
+            this.lblKorean.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblChinese
+            // 
+            this.lblChinese.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblChinese.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblChinese.Location = new System.Drawing.Point(0, 0);
+            this.lblChinese.Name = "lblChinese";
+            this.lblChinese.Size = new System.Drawing.Size(200, 150);
+            this.lblChinese.TabIndex = 5;
+            this.lblChinese.Text = "Chinese";
+            this.lblChinese.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // pictureQuestion
             // 
             this.pictureQuestion.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pictureQuestion.Location = new System.Drawing.Point(500, 14);
+            this.pictureQuestion.Location = new System.Drawing.Point(515, 272);
             this.pictureQuestion.Name = "pictureQuestion";
-            this.pictureQuestion.Size = new System.Drawing.Size(164, 119);
+            this.pictureQuestion.Size = new System.Drawing.Size(101, 100);
             this.pictureQuestion.TabIndex = 4;
             this.pictureQuestion.TabStop = false;
             this.pictureQuestion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureQuestion_MouseDown);
             this.pictureQuestion.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureQuestion_MouseMove);
             this.pictureQuestion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureQuestion_MouseUp);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "label1";
             // 
             // Form1
             // 
@@ -86,7 +127,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.gameCanvas.ResumeLayout(false);
-            this.gameCanvas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureQuestion)).EndInit();
             this.ResumeLayout(false);
 
@@ -95,8 +135,12 @@
         #endregion
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Panel gameCanvas;
+        private System.Windows.Forms.Label lblChinese;
+        private System.Windows.Forms.Label lblThai;
+        private System.Windows.Forms.Label lblKorean;
+        private System.Windows.Forms.Label Japanies;
+        private System.Windows.Forms.Label lblJapanese;
         private System.Windows.Forms.PictureBox pictureQuestion;
-        private System.Windows.Forms.Label label1;
     }
 }
 
