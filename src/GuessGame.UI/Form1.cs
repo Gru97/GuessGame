@@ -1,15 +1,18 @@
 ﻿using GuessGame.Tests;
 using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GuessGame.UI
 {
     public partial class Form1 : Form
     {
-        private Point _initialLocation;
-        private GameManager _gameManager;
-        private bool pictureQuestionIsSelected;
+        private readonly Point _initialLocation;
+        private readonly GameManager _gameManager;
+        private bool _pictureIsSelected;
+        private const string INITIALPICTURETEXT = "Guess My Nationality?";
        
         public Form1()
         {
@@ -17,16 +20,32 @@ namespace GuessGame.UI
             DoubleBuffered = true;
 
             _gameManager = new GameManager();
-            _gameManager.PictureLocationRestarted+= OnPictureLocationRestarted;
-            _gameManager.PictureMoved+= OnPictureMoved;
             _initialLocation = pictureQuestion.Location;
         }
 
     
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private async void btnStart_Click(object sender, EventArgs e)
         {
-            _gameManager.StartGame();
+            _gameManager.StartRound();
+            await MovePicture();
+            
+        }
+
+        private async Task MovePicture()
+        {
+
+            while (!_gameManager.IsRoundFinished() )
+            {
+                if (_pictureIsSelected)
+                    break;
+                
+
+                pictureQuestion.Location =
+                    new Point(pictureQuestion.Location.X, pictureQuestion.Location.Y + 1);
+
+                await Task.Delay(1);
+            }
         }
 
         private void OnPictureMoved()
@@ -35,8 +54,6 @@ namespace GuessGame.UI
             {
                 pictureQuestion.Location =
                     new Point(pictureQuestion.Location.X, pictureQuestion.Location.Y + 1);
-
-                gameCanvas.Refresh();
             }));
         }
         private void OnPictureLocationRestarted(string correctGuess)
@@ -44,45 +61,57 @@ namespace GuessGame.UI
             Invoke(new Action(delegate()
             {
                 pictureQuestion.Location = _initialLocation;
-                pictureQuestion.Text = correctGuess;
-                gameCanvas.Refresh();
+                pictureQuestion.Text =  $"{INITIALPICTURETEXT}\n({correctGuess})";
+                //gameCanvas.Refresh();
             }));
 
            
         }
         private void pictureQuestion_MouseDown(object sender, MouseEventArgs e)
         {
-            pictureQuestionIsSelected = true;
+            _pictureIsSelected = true;
             Invoke(new Action(delegate()
             {
-                _gameManager.Stop();
+                _gameManager.StopRound();
             }));
             
-
         }
         private void pictureQuestion_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (pictureQuestionIsSelected)
+                if (_pictureIsSelected)
                     pictureQuestion.Location = new Point(pictureQuestion.Location.X + e.X, pictureQuestion.Location.Y + e.Y);
             }
 
         }
 
-        private void pictureQuestion_MouseUp(object sender, MouseEventArgs e)
+        private async void pictureQuestion_MouseUp(object sender, MouseEventArgs e)
         {
             pictureQuestion.Location = new Point(pictureQuestion.Location.X+ e.X, pictureQuestion.Location.Y+ e.Y);
 
-            pictureQuestionIsSelected = false;
+            _pictureIsSelected = false;
+
             if (IsInAnyBox())
                 _gameManager.PlayerGuessed(GuessedBox());
 
-            pictureQuestion.Location = _initialLocation;
-            lblScore.Text = _gameManager.GetScore().ToString();
+            PrepareBoardForNextRound();
+            ShowScore();
             _gameManager.StartRound();
+            await MovePicture();
 
         }
+
+        private void PrepareBoardForNextRound()
+        {
+            pictureQuestion.Location = _initialLocation;
+        }
+
+        private void ShowScore()
+        {
+            lblScore.Text = _gameManager.GetScore().ToString();
+        }
+
         private Choice GuessedBox()
         {
             if (pictureQuestion.Bounds.IntersectsWith(lblChinese.Bounds)) return Choice.Chinese;

@@ -24,7 +24,6 @@ namespace GuessGame.Tests
             for (int i = 0; i < MaxRound; i++)
             {
                 var randomChoice = random.Next(0, 3);
-                //var randomChoice = 1;
                 Questions.Add((Choice)randomChoice);
             }
             
@@ -32,20 +31,20 @@ namespace GuessGame.Tests
 
         public void Score()
         {
-            if (Player.CurrentChoice == GetCurrentRoundRightGuess())
+            if (GuessIsCorrect())
                 Player.Score += 20;
             else
                 Player.Score -= 5;
-
-            NextRound();
         }
 
+        private bool GuessIsCorrect() => Player.CurrentChoice == GetCurrentRoundRightGuess();
         public Choice GetCurrentRoundRightGuess() => Questions[CurrentRound - 1];
         
 
 
-        private void NextRound()
+        public void NextRound()
         {
+            
             CurrentRound++;
         }
     }
