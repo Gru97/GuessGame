@@ -110,9 +110,9 @@
             // 
             this.pictureQuestion.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.pictureQuestion.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.pictureQuestion.Location = new System.Drawing.Point(546, 0);
+            this.pictureQuestion.Location = new System.Drawing.Point(522, 0);
             this.pictureQuestion.Name = "pictureQuestion";
-            this.pictureQuestion.Size = new System.Drawing.Size(118, 100);
+            this.pictureQuestion.Size = new System.Drawing.Size(158, 143);
             this.pictureQuestion.TabIndex = 4;
             this.pictureQuestion.Text = "Guess My Nationality?";
             this.pictureQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,7 +142,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1249, 650);
+            this.ClientSize = new System.Drawing.Size(1239, 650);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.gameCanvas);

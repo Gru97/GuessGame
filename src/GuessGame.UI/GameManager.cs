@@ -20,41 +20,31 @@ namespace GuessGame.UI
             _game.GenerateRandomQuestions();
 
         }
-
-        public void PlayerGuessed(Choice choice)
+        public void StartRound()
         {
-            _game.Player.Guess(choice);
-            _game.Score();
-        }
-      
-        private bool TimesUp()
-        {
-            return _timer.Elapsed.Seconds > Game.MaxTimeEachRound;
-        }
+            if (_game.End())
+                return;
 
+            _timer.Restart();
+        }
         public void StopRound()
         {
             _useGuessed = true;
             _timer.Stop();
         }
-
-        public int GetScore()
+        public void PlayerGuessed(Choice choice)
         {
-            return _game.Player.Score;
+            _game.Player.Guess(choice);
+            _game.Score();
         }
 
-        public bool IsRoundFinished()
-        {
-            return !_timer.IsRunning && !TimesUp();
-        }
-
-        public void StartRound()
-        {
-            
-            _timer.Restart();
-        }
-
-      
+        public void NextRound()=> _game.NextRound();
+        private bool TimesUp()=> _timer.Elapsed.Seconds > Game.MaxTimeEachRound;
+        public int GetScore()=> _game.Player.Score;
+        public bool IsRoundFinished() => TimesUp() || !_timer.IsRunning ;
+        public string GetCorrectGuessForRound()=> _game.GetCurrentRoundRightGuess().ToString();
+        public bool End() => _game.End() ;
+       
     }
 
   

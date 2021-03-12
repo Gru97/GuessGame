@@ -8,14 +8,15 @@ namespace GuessGame.Tests
         public List<Choice> Questions { get; set; }
         public Player Player { get; set; }
         public static int MaxRound = 2;
-        public static int MaxTimeEachRound = 10;
-        public int CurrentRound { get; set; } = 1;
+        public static int MaxTimeEachRound = 8;
+        public int CurrentRound { get; set; }
 
         public bool End() => MaxRound < CurrentRound;
       
         public Game()
         {
-            Questions=new List<Choice>();
+            CurrentRound = 1;
+            Questions =new List<Choice>();
             Player=new Player();
         }
         public void GenerateRandomQuestions()
@@ -40,12 +41,11 @@ namespace GuessGame.Tests
         private bool GuessIsCorrect() => Player.CurrentChoice == GetCurrentRoundRightGuess();
         public Choice GetCurrentRoundRightGuess() => Questions[CurrentRound - 1];
         
-
-
         public void NextRound()
         {
-            
             CurrentRound++;
         }
+
+       
     }
 }
