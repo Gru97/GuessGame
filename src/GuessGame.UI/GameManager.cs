@@ -11,7 +11,7 @@ namespace GuessGame.UI
     {
         private readonly Game _game;
         private readonly Stopwatch _timer;
-        private bool _useGuessed;
+        private bool _useGuessed=false;
 
         public GameManager()
         {

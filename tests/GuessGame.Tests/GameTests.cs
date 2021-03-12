@@ -11,11 +11,7 @@ namespace GuessGame.Tests
     //The total points should be displayed at the bottom of the screen.
     //Immediately after the picture has disappeared, the next picture should drop.
     //This should continue for 10 or more pictures and then the game will stop, showing the user's total score, with a button to play again.
-    
-    //game -> has a player, 10 toBeGuessed
-    //Picture with nationality
-    //Player -> guess, has score, 
-    
+
    
     public class GameTests
     {

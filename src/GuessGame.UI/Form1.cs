@@ -40,8 +40,7 @@ namespace GuessGame.UI
                     MovePictureOneStep();
                     await Task.Delay(1);
                 }
-                RoundFinishedWithoutSelection();
-
+                RoundFinishedWithoutGuess();
             }
             if (_gameManager.End() && !_pictureIsSelected)
             {
@@ -52,7 +51,7 @@ namespace GuessGame.UI
 
         }
 
-        private void RoundFinishedWithoutSelection()
+        private void RoundFinishedWithoutGuess()
         {
             if(!_pictureIsSelected)
                 _gameManager.NextRound();
