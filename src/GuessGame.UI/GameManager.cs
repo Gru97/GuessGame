@@ -10,7 +10,7 @@ namespace GuessGame.UI
     public class GameManager
     {
         private Game _game;
-        private bool _useGuessed=false;
+        private bool _playerGuessed=false;
 
         public GameManager()
         {
@@ -19,7 +19,7 @@ namespace GuessGame.UI
         public void StopRound()
         {
             _game.CurrentRound.StopRound();
-            _useGuessed = true;
+            _playerGuessed = true;
         }
         public void PlayerGuessed(Choice choice)
         {

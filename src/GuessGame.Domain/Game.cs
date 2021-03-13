@@ -6,7 +6,7 @@
         public Round CurrentRound { get; private set; }
         public bool End { get; private set; }
 
-        public static int MaxRound = 10;
+        public static int MaxRound = 2;
         public Game()
         {
             Player=new Player();
