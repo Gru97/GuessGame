@@ -1,35 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace GuessGame.Tests
+﻿namespace GuessGame.Domain
 {
     public class Game
     {
-        public List<Choice> Questions { get; set; }
         public Player Player { get; set; }
         public static int MaxRound = 2;
-        public static int MaxTimeEachRound = 8;
-        public int CurrentRound { get; set; }
-
-        public bool End() => MaxRound < CurrentRound;
+        public Round CurrentRound { get; set; }
+        public bool End { get; set; }
       
         public Game()
         {
-            CurrentRound = 1;
-            Questions =new List<Choice>();
             Player=new Player();
+            CurrentRound=new Round();
         }
-        public void GenerateRandomQuestions()
-        {
-            var random= new Random();
-            for (int i = 0; i < MaxRound; i++)
-            {
-                var randomChoice = random.Next(0, 3);
-                Questions.Add((Choice)randomChoice);
-            }
-            
-        }
-
+        
         public void Score()
         {
             if (GuessIsCorrect())
@@ -39,13 +22,18 @@ namespace GuessGame.Tests
         }
 
         private bool GuessIsCorrect() => Player.CurrentChoice == GetCurrentRoundRightGuess();
-        public Choice GetCurrentRoundRightGuess() => Questions[CurrentRound - 1];
-        
+        public Choice GetCurrentRoundRightGuess() =>CurrentRound.CorrectGuess;
         public void NextRound()
         {
-            CurrentRound++;
-        }
+            var nextRoundNumber = CurrentRound.RoundNumber + 1;
+            if (nextRoundNumber > MaxRound)
+            {
+                End = true;
+                return;
+            }
 
+            CurrentRound.StartRound(nextRoundNumber);
+        }
        
     }
 }

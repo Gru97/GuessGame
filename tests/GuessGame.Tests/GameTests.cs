@@ -1,4 +1,5 @@
 ﻿using System;
+using GuessGame.Domain;
 using Xunit;
 
 namespace GuessGame.Tests
@@ -24,25 +25,13 @@ namespace GuessGame.Tests
 
             Assert.Equal(Choice.Korean, player.CurrentChoice);
         }
-        [Fact]
-        public void Should_Generate_Question_For_Game()
-        {
-            var game = new Game();
-
-            game.GenerateRandomQuestions();
-
-            Assert.Equal(Game.MaxRound,game.Questions.Count);
-
-
-        }
 
         [Fact]
         public void Player_Should_Get_20_Points_On_Correct_Guess()
         {
             var game = new Game();
-            game.GenerateRandomQuestions();
 
-            game.Player.Guess(Choice.Chinese);
+            game.Player.Guess(game.CurrentRound.CorrectGuess);
             game.Score();
 
             Assert.Equal(20, game.Player.Score);
@@ -53,9 +42,8 @@ namespace GuessGame.Tests
         {
 
             var game = new Game();
-            game.GenerateRandomQuestions();
 
-            game.Player.Guess(Choice.Japanese);
+            game.Player.Guess(Choice.Chinese);
             game.Score();
 
             Assert.Equal(-5, game.Player.Score);
@@ -63,18 +51,18 @@ namespace GuessGame.Tests
         }
 
         [Fact]
-        public void Game_Should_End_After_10_Guess()
+        public void Game_Should_End_After_All_Rounds_Are_Played()
         {
             var game=new Game();
-            game.GenerateRandomQuestions();
 
-            while (!game.End())
+            while (!game.End)
             {
                 game.Player.Guess(Choice.Korean);
                 game.Score();
+                game.NextRound();
             }
             
-            Assert.Equal(10,game.CurrentRound);
+            Assert.Equal(Game.MaxRound, game.CurrentRound.RoundNumber);
         }
 
     }

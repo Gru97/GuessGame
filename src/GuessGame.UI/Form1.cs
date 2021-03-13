@@ -1,9 +1,9 @@
-﻿using GuessGame.Tests;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GuessGame.Domain;
 
 namespace GuessGame.UI
 {
@@ -33,7 +33,7 @@ namespace GuessGame.UI
         {
             while (!_gameManager.End() && !_pictureIsSelected)
             {
-                _gameManager.StartRound();
+                _gameManager.NextRound();
                 PrepareBoardForCurrentRound();
 
                 while (!_gameManager.IsRoundFinished() && !_pictureIsSelected)

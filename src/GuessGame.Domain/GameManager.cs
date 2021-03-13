@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
-using GuessGame.Tests;
 
 namespace GuessGame.Domain
 {
@@ -15,8 +14,7 @@ namespace GuessGame.Domain
         public void StartGame()
         {
             _game = new Game();
-            _game.GenerateRandomQuestions();
-
+            
             Thread worker = new Thread(new ThreadStart(Move));
             worker.Start();
         }
@@ -29,7 +27,7 @@ namespace GuessGame.Domain
         private void Move()
         {
 
-            while (!_game.End())
+            while (!_game.End)
             {
                 if (!_timer.IsRunning)
                 {

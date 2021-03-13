@@ -1,4 +1,4 @@
-﻿namespace GuessGame.Tests
+﻿namespace GuessGame.Domain
 {
     public enum Choice
     {

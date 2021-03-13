@@ -3,34 +3,23 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using GuessGame.Tests;
+using GuessGame.Domain;
 
 namespace GuessGame.UI
 {
     public class GameManager
     {
-        private readonly Game _game;
-        private readonly Stopwatch _timer;
+        private Game _game;
         private bool _useGuessed=false;
 
         public GameManager()
         {
-            _game = new Game();
-            _timer = new Stopwatch();
-            _game.GenerateRandomQuestions();
-
-        }
-        public void StartRound()
-        {
-            if (_game.End())
-                return;
-
-            _timer.Restart();
+            _game=new Game();
         }
         public void StopRound()
         {
+            _game.CurrentRound.StopRound();
             _useGuessed = true;
-            _timer.Stop();
         }
         public void PlayerGuessed(Choice choice)
         {
@@ -39,11 +28,11 @@ namespace GuessGame.UI
         }
 
         public void NextRound()=> _game.NextRound();
-        private bool TimesUp()=> _timer.Elapsed.Seconds > Game.MaxTimeEachRound;
+        private bool TimesUp() => _game.CurrentRound.TimesUp();
         public int GetScore()=> _game.Player.Score;
-        public bool IsRoundFinished() => TimesUp() || !_timer.IsRunning ;
+        public bool IsRoundFinished() => TimesUp() || _game.CurrentRound.IsFinished();
         public string GetCorrectGuessForRound()=> _game.GetCurrentRoundRightGuess().ToString();
-        public bool End() => _game.End() ;
+        public bool End() => _game.End ;
        
     }
 
