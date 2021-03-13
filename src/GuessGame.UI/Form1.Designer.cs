@@ -109,6 +109,7 @@
             // pictureQuestion
             // 
             this.pictureQuestion.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.pictureQuestion.Enabled = false;
             this.pictureQuestion.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.pictureQuestion.Location = new System.Drawing.Point(522, 0);
             this.pictureQuestion.Name = "pictureQuestion";

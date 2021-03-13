@@ -25,6 +25,7 @@ namespace GuessGame.UI
         private async void btnStart_Click(object sender, EventArgs e)
         {
             _gameManager = new GameManager();
+            pictureQuestion.Enabled = true;
             await MovePictureForCurrentRound();
         }
 
