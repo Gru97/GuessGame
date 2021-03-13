@@ -34,6 +34,7 @@ namespace GuessGame.UI
             while (!_gameManager.End() && !_pictureIsSelected)
             {
                 _gameManager.NextRound();
+                ShowRound();
                 PrepareBoardForCurrentRound();
 
                 while (!_gameManager.IsRoundFinished() && !_pictureIsSelected)
@@ -50,6 +51,11 @@ namespace GuessGame.UI
                 ResetBoard();
             }
 
+        }
+
+        private void ShowRound()
+        {
+            lblRound.Text = _gameManager.CurrentRoundNumber().ToString();
         }
 
         private void RoundFinishedWithoutGuess()
@@ -91,7 +97,6 @@ namespace GuessGame.UI
                 {
                     _gameManager.PlayerGuessed(GuessedBox());
                     ShowScore();
-                    _gameManager.NextRound();
                 }
                 await MovePictureForCurrentRound();
             }
@@ -107,6 +112,8 @@ namespace GuessGame.UI
             pictureQuestion.Text = $"{INITIALPICTURETEXT})";
             pictureQuestion.Location = _initialLocation;
             lblScore.Text = "0";
+            lblRound.Text ="0";
+
 
         }
         private void ShowScore()

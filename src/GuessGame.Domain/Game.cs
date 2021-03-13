@@ -5,8 +5,8 @@
         public Player Player { get; private set; }
         public Round CurrentRound { get; private set; }
         public bool End { get; private set; }
-        public static int MaxRound = 10;
 
+        public static int MaxRound = 10;
         public Game()
         {
             Player=new Player();
@@ -27,7 +27,7 @@
             var nextRoundNumber = CurrentRound.RoundNumber + 1;
             if (nextRoundNumber > MaxRound)
                 End = true; 
-              else
+            else
                 CurrentRound.StartRound(nextRoundNumber);
         }
        

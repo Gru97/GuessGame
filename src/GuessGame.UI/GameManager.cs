@@ -33,7 +33,8 @@ namespace GuessGame.UI
         public bool IsRoundFinished() => TimesUp() || _game.CurrentRound.IsFinished();
         public string GetCorrectGuessForRound()=> _game.GetCurrentRoundRightGuess().ToString();
         public bool End() => _game.End ;
-       
+        public int CurrentRoundNumber() => _game.CurrentRound.RoundNumber;
+     
     }
 
   

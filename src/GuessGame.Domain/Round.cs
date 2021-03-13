@@ -9,10 +9,7 @@ namespace GuessGame.Domain
         public int RoundNumber { get; set; }
         private readonly Stopwatch _timer;
         public const int MaxTimeEachRound = 8;
-        public Round()
-        {
-            _timer = new Stopwatch();
-        }
+        public Round()=> _timer = new Stopwatch();
         private void SetCorrectChoice()
         {
             var random = new Random();
@@ -25,10 +22,7 @@ namespace GuessGame.Domain
             SetCorrectChoice();
             RoundNumber = round;
         }
-        public void StopRound()
-        {
-            _timer.Stop();
-        }
+        public void StopRound()=> _timer.Stop();
         public bool TimesUp()=> _timer.Elapsed.Seconds > MaxTimeEachRound;
         public bool IsFinished() => !_timer.IsRunning;
     }

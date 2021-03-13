@@ -37,16 +37,19 @@
             this.pictureQuestion = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblRound = new System.Windows.Forms.Label();
             this.gameCanvas.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(468, 607);
+            this.btnStart.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnStart.Location = new System.Drawing.Point(506, 604);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(92, 22);
+            this.btnStart.Size = new System.Drawing.Size(92, 31);
             this.btnStart.TabIndex = 6;
-            this.btnStart.Text = "Start";
+            this.btnStart.Text = "Play";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
@@ -124,26 +127,50 @@
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(817, 612);
+            this.lblScore.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblScore.Location = new System.Drawing.Point(807, 612);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(13, 15);
+            this.lblScore.Size = new System.Drawing.Size(15, 17);
             this.lblScore.TabIndex = 9;
             this.lblScore.Text = "0";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(760, 611);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(767, 612);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 15);
+            this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Score";
+            this.label1.Text = "Score:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(857, 612);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 17);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Round:";
+            // 
+            // lblRound
+            // 
+            this.lblRound.AutoSize = true;
+            this.lblRound.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblRound.Location = new System.Drawing.Point(902, 612);
+            this.lblRound.Name = "lblRound";
+            this.lblRound.Size = new System.Drawing.Size(15, 17);
+            this.lblRound.TabIndex = 12;
+            this.lblRound.Text = "0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1239, 650);
+            this.Controls.Add(this.lblRound);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.gameCanvas);
@@ -167,6 +194,8 @@
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label pictureQuestion;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblRound;
     }
 }
 
