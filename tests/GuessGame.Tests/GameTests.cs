@@ -64,6 +64,5 @@ namespace GuessGame.Tests
             
             Assert.Equal(Game.MaxRound, game.CurrentRound.RoundNumber);
         }
-
     }
 }
